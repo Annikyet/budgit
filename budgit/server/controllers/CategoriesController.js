@@ -13,6 +13,7 @@ export class CategoriesController extends BaseController {
       .get('', this.getAll)
       .get('/:id', this.getById)
       .put('/:id', this.modify)
+      .delete('/:id', this.remove)
   }
 
   async create(req, res, next) {
@@ -43,15 +44,21 @@ export class CategoriesController extends BaseController {
     }
   }
 
-  // TODO modify()
   async modify(req, res, next) {
     try {
-      const data = await categoriesService.modify(res.data, req.params.id, req.userInfo.id)
+      const data = await categoriesService.modify(req.body, req.params.id, req.userInfo.id)
       return res.send(data)
     } catch (error) {
       next(error)
     }
   }
 
-  // TODO delete()
+  async remove(req, res, next) {
+    try {
+      const data = await categoriesService.remove(req.params.id, req.userInfo.id)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

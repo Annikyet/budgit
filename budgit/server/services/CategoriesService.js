@@ -20,14 +20,11 @@ class CategoriesService {
   }
 
   async getById(categoryId, accountId) {
-    const category = await dbContext.Categories.find({accountId: accountId, _id: categoryId})
+    // needs to be findOne to not wrap object inside an object
+    const category = await dbContext.Categories.findOne({accountId: accountId, _id: categoryId})
     if (!category){
       throw new BadRequest('Invalid Id')
     }
-    // if (accountId != category.accountId) {
-    //   // TODO this still is a data leak, because it tells the attacker that the category exists
-    //   throw new BadRequest('das nacho category')
-    // }
     return category
   }
   
@@ -37,16 +34,26 @@ class CategoriesService {
     if (!original) {
       throw new BadRequest('category does not exist')
     }
+    // throw new BadRequest(original)
     original.name = update.name || original.name
     original.budgeted = update.budgeted || original.budgeted
     original.targetAmt = update.targetAmt || original.targetAmt
     original.targetStart = update.targetStart || original.targetStart
     original.targetFreq = update.targetFreq || original.targetFreq
     original.targetUnit = update.targetUnit || original.targetUnit
-    update = await dbContext.Categories.findByIdAndUpdate(categoryId, original)
+    await original.save()
+    // this works because original is a mongoose object - but it only works if it's findOne - not an object of object
+    return original
   }
   
-  // TODO delete()
+  async remove(categoryId, accountId) {
+    const category = await this.getById(categoryId, accountId)
+    if (!category) {
+      throw new BadRequest('category does not exist')
+    }
+    category.remove()
+    return category
+  }
 }
   
 export const categoriesService = new CategoriesService
