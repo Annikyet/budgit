@@ -1,36 +1,21 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
-      </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon" />
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link
-            :to="{ name: 'About' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+  <nav class="flex justify-between items-end w-screen bg-stone-800 p-2">
+    <div class="flex justify-start items-end">
+      <router-link :to="{ name: 'Overview' }">
+        <h3 class="text-4xl mr-10 text-green-300 hover:text-slate-50">Budg.it</h3>
+      </router-link>
+      <router-link :to="{ name: 'Transactions' }">
+        <p class="hidden md:block">Transactions</p>
+      </router-link>
     </div>
+    <Login class="hidden md:block" />
+    <div class="block md:hidden mdi mdi-menu"></div>
   </nav>
+
+
+
+
+
 </template>
 
 <script>
@@ -45,9 +30,11 @@ export default {
 a:hover {
   text-decoration: none;
 }
+
 .nav-link {
   text-transform: uppercase;
 }
+
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;

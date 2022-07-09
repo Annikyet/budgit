@@ -1,13 +1,13 @@
 <template>
-  <header>
+  <header class="text-slate-50">
     <Navbar />
   </header>
-  <main>
+  <main class="text-slate-50 bg-stone-900 h-full">
     <router-view />
   </main>
-  <footer>
+  <footer class="text-slate-50 bg-stone-800">
     <div>
-      Made with 💖 by CodeWorks
+      An <a href="https://github.com/annikyet">Annika</a> project.
     </div>
   </footer>
 </template>
