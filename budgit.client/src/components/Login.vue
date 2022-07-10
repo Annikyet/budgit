@@ -1,24 +1,16 @@
 <template>
-  <span class="navbar-text">
-    <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
+  <span class="flex self-start md:self-end">
+    <button class="hover:text-green-300" @click="login"
       v-if="!user.isAuthenticated">
       Login
     </button>
 
-    <div class="" v-else>
-      <div class="flex" id="authDropdown">
-        <router-link :to="{ name: 'Account' }">
-          <div class="flex">
-            <div v-if="account.picture" class="">
-              <img :src="account.picture" alt="account photo" height="40" class="max-h-8" />
-            </div>
-            <span class="mx-3 text-success lighten-30">{{ account.name }}</span>
-          </div>
-        </router-link>
-        <div class="hover:text-green-300" @click="logout">
-          <i class="mdi mdi-logout"></i>
-          <!-- logout -->
-        </div>
+    <div class="flex" v-else>
+      <router-link :to="{ name: 'Account' }" class="self-start md:self-end">
+        <span class="text-xs self-start md:self-end md:text-base md:mx-3">{{ account.name }}</span>
+      </router-link>
+      <div class="hidden md:block hover:text-green-300 cursor-pointer" @click="logout">
+        <i class="mdi mdi-logout"></i>
       </div>
     </div>
   </span>

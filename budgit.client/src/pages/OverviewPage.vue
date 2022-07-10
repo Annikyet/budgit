@@ -1,7 +1,10 @@
 <template>
   <div class="component">
-    <h1>overviewpage</h1>
-
+    <p class="hover:text-green-300 cursor-pointer">Add Category</p>
+    <div class="flex md:mx-40 flex-col md:flex-row">
+      <div class="md:w-4/12 md:order-last">analysis container</div>
+      <div class="md:w-8/12">category container</div>
+    </div>
   </div>
 </template>
 
