@@ -43,4 +43,8 @@ a:hover {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+
+.router-link-active {
+  @apply text-green-300;
+}
 </style>
