@@ -2,16 +2,30 @@
   <div class="component">
     <div class="flex mt-6 md:mx-40 flex-col">
       <h1>Transactions Container</h1>
-      <Transaction v-for="t in 10" />
+      <Transaction v-for="t in transactions" :key="t._id" :transaction="t" />
     </div>
   </div>
 </template>
 
 
 <script>
+import { computed, onMounted } from 'vue'
+import { AppState } from '../AppState'
+import { transactionsService } from '../services/TransactionsService'
+import { logger } from '../utils/Logger'
+
 export default {
   setup(){
-    return {}
+    onMounted(async () => {
+      try {
+        await transactionsService.getAll()
+      } catch (error) {
+        logger.log(error)
+      }
+    })
+    return {
+      transactions: computed(() => AppState.transactions)
+    }
   }
 }
 </script>
@@ -20,3 +34,14 @@ export default {
 <style lang="scss" scoped>
 
 </style>
+
+    <!-- const route = useRoute()
+    onMounted(async () => {
+      try {
+        await supportsService.getSupportsByProject(route.params.id)
+      } catch (error) {
+        Pop.error(error)
+      }
+    }) -->
+
+    <!-- tiers: computed(() => AppState.tiers) -->

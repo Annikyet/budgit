@@ -1,18 +1,20 @@
 <template>
   <nav class="flex justify-between items-end w-screen bg-stone-800 py-2 pr-3">
-    <div class="flex justify-start items-end">
+    <div class="flex flex-wrap md:flex-nowrap justify-start items-end">
       <router-link :to="{ name: 'Overview' }">
-        <h3 class="text-4xl mr-10 text-green-300 hover:text-slate-50">Budg.it</h3>
+        <h3 class="order-1 text-4xl mr-10 text-green-300 hover:text-slate-50">Budg.it</h3>
         <!-- text-rose-700: color of bad -->
       </router-link>
-      <router-link :to="{ name: 'Overview' }">
-        <p class="hidden md:block mx-3">Overview</p>
+      <div class="flex order-3 md:order-2">
+        <router-link :to="{ name: 'Overview' }">
+        <p class="max-w-5/12 mx-3">Overview</p>
       </router-link>
       <router-link :to="{ name: 'Transactions' }">
-        <p class="hidden md:block mx-3">Transactions</p>
+        <p class="max-w-5/12 mx-3">Transactions</p>
       </router-link>
+      </div>
     </div>
-    <Login class="md:block" />
+    <Login class="order-2 md:order-3 md:block" />
   </nav>
 
 
@@ -45,6 +47,6 @@ a:hover {
 }
 
 .router-link-active {
-  @apply text-green-300;
+  @apply text-green-300 hover:text-slate-50;
 }
 </style>

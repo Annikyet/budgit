@@ -1,22 +1,22 @@
 <template>
   <div class="component flex flex-wrap md:flex-nowrap justify-between bg-stone-800 mb-2">
     <div class="pr-4">
-      <input type="date" v-model="date" placeholder="2022-07-11" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
+      <input type="date" v-model="transaction.date" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div class="pr-4">
-      <input type="number" v-model="amount" placeholder="$0.00" class="w-24 bg-stone-800 text-slate-50 hover:bg-green-300 hover:text-stone-900">
+      <input type="number" v-model="transaction.amount" :placeholder="transaction.amount" class="w-24 bg-stone-800 text-slate-50 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div class="pr-4">
-      <input type="text" v-model="payee" placeholder="Payee" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
+      <input type="text" v-model="transaction.payee" :placeholder="transaction.payee" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div class="pr-4">
-      <select v-model="category" class="text-slate-50 bg-stone-800 w-36 hover:bg-green-300 hover:text-stone-900">
-        <option value="" selected>UnCATegorized</option>
+      <select v-model="transaction.category" class="text-slate-50 bg-stone-800 w-36 hover:bg-green-300 hover:text-stone-900">
+        <option value="" selected>{{transaction.category}}</option>
         <option v-for="c in 10" value="meow">meow</option>
       </select>
     </div>
     <div class="pr-4">
-      <input type="text" v-model="comment" placeholder="Comments" class="text-slate-50 bg-stone-800 w-48 hover:bg-green-300 hover:text-stone-900">
+      <input type="text" v-model="transaction.comment" :placeholder="transaction.comment" class="text-slate-50 bg-stone-800 w-48 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div>
       <button class="text-slate-50 bg-stone-800 w-16 hover:bg-green-300 hover:text-stone-900">
@@ -29,9 +29,25 @@
 
 <script>
 export default {
+  // TODO there's probably something wrong with this...
+  props: {
+    transaction: {
+      date: String || '2022-07-11',
+      amount: Number || 0,
+      payee: String || '',
+      category: String || '', //should be enum
+      comment: String || ''
+    }
+  },
   setup(){
     return {
-      date: '2022-07-11'
+      // transaction: {
+      //   date: '2022-07-11',
+      //   amount: 0,
+      //   payee: '',
+      //   category: '',
+      //   comment: ''
+      // }
     }
   }
 }

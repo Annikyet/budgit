@@ -14,7 +14,8 @@ const routes = [
   {
     path: '/transactions',
     name: 'Transactions',
-    component: loadPage('TransactionsPage')
+    component: loadPage('TransactionsPage'),
+    beforeEnter: authGuard // this is important to keep the request from firing before the auth token is issued.
   },
   {
     path: '/account',
