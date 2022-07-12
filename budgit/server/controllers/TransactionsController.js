@@ -3,6 +3,7 @@ import { accountService } from '../services/AccountService'
 import { categoriesService } from '../services/CategoriesService'
 import { transactionsService } from '../services/TransactionsService'
 import BaseController from '../utils/BaseController'
+import { logger } from '../utils/Logger'
 
 // export class CategoriesController extends BaseController {
 //   constructor() {
@@ -23,6 +24,7 @@ export class TransactionsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .get('', this.getAll)
+      .put('/:id', this.update)
   }
 
   async create(req, res, next) {
@@ -40,6 +42,20 @@ export class TransactionsController extends BaseController {
       const allTransactions = await transactionsService.getAll(req.userInfo.id)
       return res.send(allTransactions)
     } catch (error) {
+      next(error)
+    }
+  }
+
+  // TODO test this
+  async update(req, res, next) {
+    try {
+      // I'm tired of losing the people I love...
+      logger.log(req)
+      const updatedTransaction = await transactionsService.update(req.userInfo.id, req.params.id, req.body)
+      // I'm tired of not being enough...
+      return res.send(updatedTransaction)
+    } catch (error) {
+      // I'm tired of life...
       next(error)
     }
   }

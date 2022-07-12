@@ -19,35 +19,38 @@
       <input type="text" v-model="transaction.comment" :placeholder="transaction.comment" class="text-slate-50 bg-stone-800 w-48 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div>
-      <button class="text-slate-50 bg-stone-800 w-16 hover:bg-green-300 hover:text-stone-900">
+      <button class="text-slate-50 bg-stone-800 w-16 hover:bg-green-300 hover:text-stone-900" @click="update">
         Save
       </button>
+      {{transaction}}
     </div>
   </div>
 </template>
 
 
 <script>
+// import { logger } from '../utils/Logger'
+import { transactionsService } from '../services/TransactionsService'
+
 export default {
   // TODO there's probably something wrong with this...
   props: {
     transaction: {
-      date: String || '2022-07-11',
-      amount: Number || 0,
-      payee: String || '',
-      category: String || '', //should be enum
-      comment: String || ''
+      type: Object,
+      required: true
     }
   },
-  setup(){
+  setup(props){
     return {
-      // transaction: {
-      //   date: '2022-07-11',
-      //   amount: 0,
-      //   payee: '',
-      //   category: '',
-      //   comment: ''
-      // }
+      async update() {
+        console.log(props.transaction)
+        // send off request to update transaction
+        try {
+          await transactionsService.update(props.transaction)
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
   }
 }

@@ -17,6 +17,14 @@ class TransactionsService {
     // logger.log('transactions: ' + res.data)
     AppState.transactions = res.data
   }
+
+  // TODO test this
+  async update(transaction) {
+    console.log(transaction._id)
+    const res = await api.put('api/transactions/' + transaction._id, transaction)
+    console.log('transactionUpdate: ' + res.data)
+    // AppState.transactions.find((t) => t._id == transactionId) = res.data
+  }
 }
 
 export const transactionsService = new TransactionsService()
