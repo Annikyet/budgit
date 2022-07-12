@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { getCents } from '../utils/Dollars'
 
 
 // TODO build the service to get some real data
@@ -20,9 +21,10 @@ class TransactionsService {
 
   // TODO test this
   async update(transaction) {
-    console.log(transaction._id)
+    // transaction.amount = getCents(transaction.dollars)
+    // console.log(transaction._id)
     const res = await api.put('api/transactions/' + transaction._id, transaction)
-    console.log('transactionUpdate: ' + res.data)
+    // console.log('transactionUpdate: ' + res.data)
     // AppState.transactions.find((t) => t._id == transactionId) = res.data
   }
 }

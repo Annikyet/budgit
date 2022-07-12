@@ -9,7 +9,8 @@ const routes = [
   {
     path: '/',
     name: 'Overview',
-    component: loadPage('OverviewPage')
+    component: loadPage('OverviewPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/transactions',

@@ -11,6 +11,7 @@ async create(newTransaction) {
   return dbTransaction
 }
 
+// TODO need to populate categories
 async getAll(accountId) {
   if (!accountId) {
     throw new BadRequest("User not logged in")
@@ -19,8 +20,6 @@ async getAll(accountId) {
   return allTransactions
 }
 
-// TODO test this
-// TODO fix this
 async update(accountId, transactionId, update) {
   if (!transactionId) {
     throw new BadRequest('Bad transaction id')

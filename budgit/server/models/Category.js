@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 
 export const CategorySchema = new Schema(
   {
-    /** @property {ObjectId} [accountId] -ID of the account this transaction belongs to */
+    /** @property {ObjectId} [accountId] -ID of the account this category belongs to */
     accountId: {type: Schema.Types.ObjectId, required: true},
     
     /** @property {String} [name] -name of the category */
