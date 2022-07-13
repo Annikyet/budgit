@@ -15,13 +15,13 @@ class CategoriesService {
     if (!accountId) {
       throw new BadRequest('you must be logged in')
     }
-    const categories = await dbContext.Categories.find({accountId: accountId})
+    const categories = await dbContext.Categories.find({accountId: accountId}).populate('transactions')
     return categories
   }
 
   async getById(categoryId, accountId) {
     // needs to be findOne to not wrap object inside an object
-    const category = await dbContext.Categories.findOne({accountId: accountId, _id: categoryId})
+    const category = await dbContext.Categories.findOne({accountId: accountId, _id: categoryId}).populate('transactions')
     if (!category){
       throw new BadRequest('Invalid Id')
     }
