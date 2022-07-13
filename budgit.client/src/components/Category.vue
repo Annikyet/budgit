@@ -1,6 +1,6 @@
 <template>
   <div class="component flex justify-between bg-stone-800 hover:bg-green-300 hover:text-stone-900 mb-2 p-2 pr-0">
-    <h3 class="text-2xl">{{category.name}}</h3>
+    <h3 :class="`text-2xl ${totalSpent() > category.budgeted ? 'text-red-400' : ''}`">{{category.name}}</h3>
     <div class="flex">
     <p class="w-16 px-2 border-l-2 border-stone-900">${{totalSpent()}}</p>
     <p class="w-16 px-2 border-l-2 border-stone-900">${{category.budgeted}}</p>
