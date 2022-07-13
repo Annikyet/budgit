@@ -23,6 +23,9 @@ export default {
     return {
       totalSpent() {
         let total = 0;
+        if (!props.category.transactions) {
+          return 0
+        }
         for (let t = 0; t < props.category.transactions.length; t++) {
           total += props.category.transactions[t].amount
         }

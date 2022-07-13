@@ -9,6 +9,11 @@ class CategoriesService {
     // console.log(res.data)
     AppState.categories = res.data
   }
+
+  async create(newCatName) {
+    const res = await api.post('api/categories', {name: newCatName})
+    AppState.categories.push(res.data)
+  }
 }
 
 export const categoriesService = new CategoriesService()

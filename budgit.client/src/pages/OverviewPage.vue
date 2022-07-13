@@ -1,7 +1,14 @@
 <template>
   <div class="component">
-    <p class="hover:text-green-300 hidden md:block cursor-pointer">Add Category</p>
-    <div class="flex md:mx-40 flex-col md:flex-row">
+    <div class="hidden md:block cursor-pointer">
+      <form @submit.prevent="createCategory">
+        <input type="text" v-model="newCatName" placeholder="Add New Category" required class="text-slate-50 bg-stone-800 hover:bg-green-300 hover:text-stone-900 p-1">
+        <button type="submit" class="text-slate-50 bg-stone-800 hover:bg-green-300 hover:text-stone-900 p-1">
+          <i class="mdi mdi-plus"></i>
+        </button>
+      </form>
+    </div>
+    <div class="flex md:mt-6 md:mx-40 flex-col md:flex-row">
       <div class="md:w-4/12 md:order-last my-4 md:my-0 bg-stone-800">analysis container</div>
       <div class="md:w-8/12 md:mr-4">
         <div class="flex justify-between bg-stone-700 text-green-300 hover:bg-green-200 hover:text-stone-900 mb-2 p-2 pr-0">
@@ -37,7 +44,15 @@ export default {
       }
     })
     return {
-      categories: computed(() => AppState.categories)
+      newCatName: '',
+      categories: computed(() => AppState.categories),
+      async createCategory() {
+        try {
+          await categoriesService.create(this.newCatName)
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
   }
 }

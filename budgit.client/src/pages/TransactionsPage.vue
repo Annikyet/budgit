@@ -1,6 +1,6 @@
 <template>
   <div class="component">
-    <div class="flex mt-6 md:mx-40 flex-col">
+    <div class="flex mt-4 md:mt-14 md:mx-40 flex-col">
       <AddTransaction :categories="categories" />
       <Transaction v-for="t in transactions" :key="t._id" :transaction="t" :categories="categories" />
     </div>
