@@ -51,6 +51,7 @@ class CategoriesService {
     if (!category) {
       throw new BadRequest('category does not exist')
     }
+    // TODO this needs to reallocate all transactions under this category to unassigned
     category.remove()
     return category
   }

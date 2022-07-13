@@ -4,6 +4,9 @@ import { logger } from '../utils/Logger'
 
 class TransactionsService {
 async create(newTransaction) {
+  if (newTransaction.categoryId == '') {
+    newTransaction.categoryId = null
+  }
   const dbTransaction = await dbContext.Transactions.create(newTransaction)
   if (!dbTransaction) {
     throw new BadRequest("transaction does not exist")
