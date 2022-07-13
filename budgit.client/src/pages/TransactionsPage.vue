@@ -1,7 +1,6 @@
 <template>
   <div class="component">
     <div class="flex mt-6 md:mx-40 flex-col">
-      <h1>Transactions Container</h1>
       <Transaction v-for="t in transactions" :key="t._id" :transaction="t" :categories="categories" />
     </div>
   </div>

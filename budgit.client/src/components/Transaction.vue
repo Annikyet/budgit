@@ -1,5 +1,5 @@
 <template>
-  <div class="component flex flex-wrap md:flex-nowrap justify-between bg-stone-800 mb-2">
+  <form class="component flex flex-wrap md:flex-nowrap justify-between bg-stone-800 mb-2" @submit.prevent="update">
     <div class="pr-4">
       <input type="date" v-model="transData.date" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
     </div>
@@ -23,15 +23,20 @@
         <option v-for="c in categories" :value="c._id">{{c.name}}</option>
       </select>
     </div>
-    <div class="pr-4">
-      <input type="text" v-model="transData.comment" :placeholder="transData.comment" class="text-slate-50 bg-stone-800 w-48 hover:bg-green-300 hover:text-stone-900">
+    <div class="pr-4 w-full">
+      <input type="text" v-model="transData.comment" :placeholder="transData.comment" class="text-slate-50 bg-stone-800 w-full hover:bg-green-300 hover:text-stone-900">
     </div>
     <div>
-      <button class="text-slate-50 bg-stone-800 w-16 hover:bg-green-300 hover:text-stone-900" @click="update">
-        Save
+      <button class="text-slate-50 bg-stone-800 px-1 hover:bg-green-300 hover:text-stone-900" @click="update">
+        <i class="mdi mdi-floppy"></i>
       </button>
     </div>
-  </div>
+    <div class="hover:bg-red-400 hover:text-stone-900">
+      <button @click="remove">
+        <i class="mdi mdi-delete"></i>
+      </button>
+    </div>
+  </form>
 </template>
 
 
@@ -72,6 +77,10 @@ export default {
         } catch (error) {
           console.log(error)
         }
+      },
+      async remove() {
+        // TODO need to write CRUD method for this
+        // probably good to write an Are-you-sure Modal too...
       }
     }
   }
