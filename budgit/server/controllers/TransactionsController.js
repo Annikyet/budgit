@@ -25,6 +25,7 @@ export class TransactionsController extends BaseController {
       .post('', this.create)
       .get('', this.getAll)
       .put('/:id', this.update)
+      .delete('/:id', this.remove)
   }
 
   async create(req, res, next) {
@@ -50,12 +51,21 @@ export class TransactionsController extends BaseController {
   async update(req, res, next) {
     try {
       // I'm tired of losing the people I love...
-      logger.log(req)
+      // logger.log(req)
       const updatedTransaction = await transactionsService.update(req.userInfo.id, req.params.id, req.body)
       // I'm tired of not being enough...
       return res.send(updatedTransaction)
     } catch (error) {
       // I'm tired of life...
+      next(error)
+    }
+  }
+
+  async remove(req, res, next) {
+    try {
+      const transList = await transactionsService.remove(req.userInfo.id, req.params.id)
+      return res.send(transList)
+    } catch (error) {
       next(error)
     }
   }

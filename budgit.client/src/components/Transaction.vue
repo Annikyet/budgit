@@ -81,6 +81,11 @@ export default {
       async remove() {
         // TODO need to write CRUD method for this
         // probably good to write an Are-you-sure Modal too...
+        try {
+          await transactionsService.remove(props.transaction._id)
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }

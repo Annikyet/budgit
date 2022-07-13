@@ -25,11 +25,14 @@ async update(accountId, transactionId, update) {
     throw new BadRequest('Bad transaction id')
   }
   let original = await dbContext.Transactions.findById(transactionId)
+  if (!update) {
+    throw new BadRequest('Transcaction DNE')
+  }
   if (accountId != original.accountId) {
     throw new BadRequest('Das nacho transaction')
   }
-  logger.log('original: ' + original)
-  logger.log('update: ' + update)
+  // logger.log('original: ' + original)
+  // logger.log('update: ' + update)
   original.categoryId = update.categoryId || original.categoryId
   original.amount = update.amount || original.amount
   original.date = update.date || original.date
@@ -37,6 +40,21 @@ async update(accountId, transactionId, update) {
   original.comment = update.comment || original.comment
   update = await dbContext.Transactions.findByIdAndUpdate(transactionId, original)
   return update
+}
+
+async remove(accountId, transactionId) {
+  if (!transactionId) {
+    throw new BadRequest('Bad transaction id')
+  }
+  const original = await dbContext.Transactions.findById(transactionId)
+  if (!original) {
+    throw new BadRequest('Transaction DNE')
+  }
+  if (original.accountId != accountId) {
+    throw new BadRequest('Das nacho transaction')
+  }
+  await dbContext.Transactions.findByIdAndRemove(transactionId)
+  return await this.getAll(accountId)
 }
 
 

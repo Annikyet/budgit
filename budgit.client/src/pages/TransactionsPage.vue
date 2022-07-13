@@ -1,6 +1,7 @@
 <template>
   <div class="component">
     <div class="flex mt-6 md:mx-40 flex-col">
+      <AddTransaction :categories="categories" />
       <Transaction v-for="t in transactions" :key="t._id" :transaction="t" :categories="categories" />
     </div>
   </div>
@@ -13,22 +14,25 @@ import { AppState } from '../AppState'
 import { categoriesService } from '../services/CategoriesService'
 import { transactionsService } from '../services/TransactionsService'
 import { logger } from '../utils/Logger'
+import AddTransaction from '../components/AddTransaction.vue'
 
 export default {
-  setup(){
-    onMounted(async () => {
-      try {
-        await categoriesService.getAll()
-        await transactionsService.getAll()
-      } catch (error) {
-        logger.log(error)
-      }
-    })
-    return {
-      transactions: computed(() => AppState.transactions),
-      categories: computed(() => AppState.categories)
-    }
-  }
+    setup() {
+        onMounted(async () => {
+            try {
+                await categoriesService.getAll();
+                await transactionsService.getAll();
+            }
+            catch (error) {
+                logger.log(error);
+            }
+        });
+        return {
+            transactions: computed(() => AppState.transactions),
+            categories: computed(() => AppState.categories)
+        };
+    },
+    components: { AddTransaction }
 }
 </script>
 

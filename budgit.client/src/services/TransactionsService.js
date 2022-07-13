@@ -27,6 +27,21 @@ class TransactionsService {
     // console.log('transactionUpdate: ' + res.data)
     // AppState.transactions.find((t) => t._id == transactionId) = res.data
   }
+
+  async create(transaction) {
+    const res = await api.post('api/transactions/', transaction)
+    // console.log(res.data)
+    AppState.transactions.push(res.data)
+  }
+
+  // TODO fix bug when deleting multiple sometimes gives 400 error
+  // accountId DNE? maybe bad data?
+  // i think it's just the button clicking before updated response?
+  async remove(id) {
+    const res = await api.delete('api/transactions/' + id)
+    // console.log(res.data)
+    AppState.transactions = res.data
+  }
 }
 
 export const transactionsService = new TransactionsService()
