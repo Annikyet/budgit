@@ -9,7 +9,9 @@
       </form>
     </div>
     <div class="flex md:mt-6 md:mx-40 flex-col md:flex-row">
-      <div class="md:w-4/12 md:order-last my-4 md:my-0 bg-stone-800">analysis container</div>
+      <div class="md:w-4/12 md:order-last my-4 md:my-0 bg-stone-800">
+        <Analysis />
+      </div>
       <div class="md:w-8/12 md:mr-4">
         <div class="flex justify-between bg-stone-700 text-green-300 hover:bg-green-200 hover:text-stone-900 mb-2 p-2 pr-0">
           <h3 class="text-2xl font-semibold">Category</h3>
