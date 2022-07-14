@@ -30,7 +30,7 @@ export default {
           return 0
         }
         for (let t = 0; t < props.category.transactions.length; t++) {
-          total += props.category.transactions[t].amount
+          total += props.category.transactions[t].amount // TODO count inflow and outflow seperately
         }
         return total
       },

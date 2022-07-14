@@ -13,7 +13,7 @@
         <Analysis />
       </div>
       <div class="md:w-8/12 md:mr-4">
-        <div class="flex justify-between bg-stone-700 text-green-300 hover:bg-green-200 hover:text-stone-900 mb-2 p-2 pr-0">
+        <div class="flex justify-between bg-stone-700 text-green-300 hover:bg-green-200 hover:text-stone-900 mb-2 p-2 pr-0" @click="viewOverview()">
           <h3 class="text-2xl font-semibold">Category</h3>
           <div class="flex">
             <p class="w-16 font-semibold px-2 border-l-2 border-stone-900">Spent</p>
@@ -39,7 +39,10 @@ export default {
     onMounted(async () => {
       try {
         // console.log(AppState.categories)
+        // console.log('onMounted call')
         await categoriesService.getAll()
+        // AppState.activeCategory = 
+        await categoriesService.getOverview()
         // console.log(AppState.categories)
       } catch (error) {
         logger.log(error)
@@ -54,6 +57,9 @@ export default {
         } catch (error) {
           console.log(error)
         }
+      },
+      async viewOverview() {
+        await categoriesService.getOverview()
       }
     }
   }
