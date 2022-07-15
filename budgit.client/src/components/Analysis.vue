@@ -5,6 +5,7 @@
       <i v-show="category._id" class="text-3xl mdi mdi-delete hover:bg-red-400 hover:text-stone-900 cursor-pointer" @click="removeCategory()"></i>
     </div>
     <h4 class="text-2xl">Spent: ${{totalSpent()}}</h4>
+    <!-- make this an input -->
     <h4 class="text-2xl">Budgeted: ${{category.budgeted}}</h4>
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script>
 import { computed, reactive, onMounted, ref, watchEffect } from "vue";
 import { AppState } from '../AppState'
+import { categoriesService } from "../services/CategoriesService";
 
 
 export default {
@@ -30,8 +32,15 @@ export default {
       },
       category: computed(() => AppState.activeCategory),
       async removeCategory() {
-        if (!AppState.activeCategory._id) {
-          console.log('trying to delete overview...')
+        try {
+          if (!AppState.activeCategory._id) {
+            console.log('trying to delete overview...')
+          }
+          // call service
+          categoriesService.remove(this.category._id)
+          
+        } catch (error) {
+          console.log(error)
         }
       }
     }

@@ -1,5 +1,6 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
+import { transactionsService } from './TransactionsService'
 
 
 class CategoriesService {
@@ -35,6 +36,7 @@ class CategoriesService {
       throw new BadRequest('category does not exist')
     }
     // throw new BadRequest(original)
+    // original.accountId = accountId
     original.name = update.name || original.name
     original.budgeted = update.budgeted || original.budgeted
     original.targetAmt = update.targetAmt || original.targetAmt
@@ -52,8 +54,18 @@ class CategoriesService {
       throw new BadRequest('category does not exist')
     }
     // TODO this needs to reallocate all transactions under this category to unassigned
+    const transactions = await transactionsService.getAll(accountId)
+    for (const t in transactions) {
+      if (transactions[t].categoryId == categoryId) {
+        await transactionsService.update(accountId, transactions[t]._id, {
+          categoryId: null
+        })
+      }
+    }
+    // need to update transactions with FE
+
     category.remove()
-    return category
+    return category._id
   }
 }
   

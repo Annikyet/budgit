@@ -1,0 +1,7 @@
+- create removeCategory method/service/CRUD
+- integrate chart.js
+- create a way to change budgeted amounts
+- do something with targets
+- UX tweaks
+- optimize backend (populate is slow...)
+- create a way to inflow money

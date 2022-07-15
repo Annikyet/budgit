@@ -1,12 +1,9 @@
 <template>
-  <form class="component flex flex-wrap md:flex-nowrap justify-between bg-stone-800 mb-2" @submit.prevent="update">
+  <form class="component flex flex-wrap md:flex-nowrap justify-between bg-stone-800 mb-2 transition fade-out duration-300" @submit.prevent="update">
     <div class="pr-4">
       <input type="date" v-model="transData.date" class="text-slate-50 bg-stone-800 w-32 hover:bg-green-300 hover:text-stone-900">
     </div>
     <div class="pr-4">
-      <!-- TODO this is bad! don't manipulate the prop -->
-      <!-- Look at cars in gregslist? -->
-      <!-- use editable object -->
       <span class="flex">
         $
         <input type="number" v-model="transData.amount" :placeholder="transData.amount" class="w-24 bg-stone-800 text-slate-50 hover:bg-green-300 hover:text-stone-900">
@@ -27,7 +24,7 @@
       <input type="text" v-model="transData.comment" :placeholder="transData.comment" class="text-slate-50 bg-stone-800 w-full hover:bg-green-300 hover:text-stone-900">
     </div>
     <div>
-      <button class="text-slate-50 bg-stone-800 px-1 hover:bg-green-300 hover:text-stone-900" @click="update">
+      <button class="text-slate-50 bg-stone-800 px-1 hover:bg-green-300 hover:text-stone-900" @click="update" :id="'transSave-' + transaction._id">
         <i class="mdi mdi-floppy"></i>
       </button>
     </div>
@@ -71,11 +68,21 @@ export default {
       async update() {
         // console.log(props.transaction)
         // send off request to update transaction
+        const transBar = document.getElementById('transSave-' + props.transaction._id)
         try {
           // use the editable object instead
           await transactionsService.update(transData.value)
+
+          // change styling to show user value was changed
+          transBar.classList.add('bg-green-300', 'text-stone-900')
+          transBar.classList.add('ease-out')
+          setTimeout(() => {transBar.classList.remove('bg-green-300', 'text-stone-900', 'ease-out')}, 800)
         } catch (error) {
           console.log(error)
+          // change styling to show user there was an error saving
+          transBar.classList.add('bg-red-400', 'text-stone-900')
+          transBar.classList.add('ease-out')
+          setTimeout(() => {transBar.classList.remove('bg-red-400', 'text-stone-900', 'ease-out')}, 800)
         }
       },
       async remove() {

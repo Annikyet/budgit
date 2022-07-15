@@ -30,6 +30,12 @@ class CategoriesService {
     }
     AppState.activeCategory = overview
   }
+
+  async remove(categoryId) {
+    const res = await api.delete('api/categories/' + categoryId)
+    AppState.categories = AppState.categories.filter((c) => c._id != categoryId)
+    await transactionsService.getAll()
+  }
 }
 
 export const categoriesService = new CategoriesService()
